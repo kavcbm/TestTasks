@@ -18,7 +18,8 @@ class Program
             lines = File.ReadAllLines("srcArray.txt");
             original = lines.Select(x=>Int32.Parse(x)).ToArray();            
         }
-        array = original;
+        array = new int[original.Length];
+        Array.Copy(original,array, original.Length);
         
         Console.WriteLine(array.Max().GetType());
         maxValue = array.Max<int>();
