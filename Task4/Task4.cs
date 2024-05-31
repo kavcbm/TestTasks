@@ -1,4 +1,6 @@
 ﻿namespace Task4;
+using System;
+using System.IO;
 
 class Program
 {
@@ -11,28 +13,30 @@ class Program
 
         try{
             lines = File.ReadAllLines(args[0]);
-            original = lines.Select(x=>Int32.Parse(x)).ToArray();
-            
         }
-        catch{
+        catch (Exception e){
+            Console.WriteLine(e.Message);
+            Console.WriteLine( "\n Читаем из файла srcArray.txt");
             lines = File.ReadAllLines("srcArray.txt");
-            original = lines.Select(x=>Int32.Parse(x)).ToArray();            
         }
+        
+        // Пустые строки не считаем
+        original = (from x in lines where x.Length > 0 select int.Parse(x)).ToArray(); 
+
         array = new int[original.Length];
         Array.Copy(original,array, original.Length);
-        
-        Console.WriteLine(array.Max().GetType());
+                
         maxValue = array.Max<int>();
         int index = Array.IndexOf(array, maxValue);
 
-        Console.WriteLine($"[{index}] = {maxValue}");
         Console.WriteLine($"{string.Join(",", array)} Среднее: {array.Average()}\n________");
 
         int step = 0;
         
-        // алгоритм приведения массива придумал, 
+        // алгоритм приведения массива:
+        // приближать максимально удаленное значение к среднему. Шаг это изменение одного элемента на единицу
         // но это еще надо строго доказать что кол-во ходов будет минимальным
-        while((array.Max()!=array.Min()) )
+        while(array.Max()!=array.Min()) 
         {
             maxValue = array.Max<int>();
             minValue = array.Min<int>();
@@ -46,8 +50,11 @@ class Program
             {
                 array[Array.IndexOf(array, minValue)]++;
             }
-            Console.WriteLine($"{string.Join(",", array)} Среднее: {array.Average()}");
-            Console.ReadKey();
+            
+            //Для визуализации:
+            //Console.WriteLine($"{string.Join(",", array)} Среднее: {array.Average()}");
+            //Console.ReadKey();
+            
             step++;
         }
         Console.WriteLine($"Исходный массив: {string.Join(",", original)}");
