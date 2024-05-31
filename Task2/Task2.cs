@@ -1,4 +1,6 @@
 ﻿namespace Task2;
+using System;
+using System.IO;
 
 class Program
 {
