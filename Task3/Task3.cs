@@ -1,6 +1,7 @@
 ﻿
 using  Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 
 namespace Task3;
@@ -22,8 +23,8 @@ class Program
       ReportFileName = "report.json";      
     }
         
-    JObject jsonObject = JObject.Parse(System.IO.File.ReadAllText(TemplateFileName));
-    JObject jsonValues = JObject.Parse(System.IO.File.ReadAllText(ValuesFileName));  
+    JObject jsonObject = JObject.Parse(File.ReadAllText(TemplateFileName));
+    JObject jsonValues = JObject.Parse(File.ReadAllText(ValuesFileName));  
     JToken NodeToWrite;
 
     foreach (JToken node in jsonValues.SelectTokens("$.values[*]")){ 
@@ -33,7 +34,7 @@ class Program
 
     //Записать результат в Файл
     string jsonStr = JsonConvert.SerializeObject(jsonObject,Newtonsoft.Json.Formatting.Indented);
-    File.WriteAllText(ReportFileName, jsonStr);      
+    File.WriteAllText(ReportFileName, jsonStr);          
     }
     
 }
