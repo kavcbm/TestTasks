@@ -1,4 +1,5 @@
 ﻿namespace Task1;
+using System;
 
 class Program  
 {   
@@ -6,8 +7,8 @@ class Program
     {
          int n=5, m=4;         
          try{
-            n = Int32.Parse(args[0]);
-            m = Int32.Parse(args[1]);            
+            n = int.Parse(args[0]);
+            m = int.Parse(args[1]);            
          }         
          catch(Exception e){
             Console.WriteLine($"Неверно указаны параметры. По умолчанию n = {n}, m = {m}");
@@ -37,16 +38,16 @@ class Program
             //   BaseLength:
             //     Длина базового массива. То есть  полного круга            
 
-            this.Base = new int[BaseLength];                        
+            Base = new int[BaseLength];                        
             
             for (int i = 0; i < BaseLength; i++){
-                this.Base[i] = i+1;                
+                Base[i] = i+1;                
             }
         }
         
         public void ShowFirstElements(int numberOfElemements, string delimiter = ","){
             for(int i = 0; i < numberOfElemements; i++){
-                Console.Write($"{this.Base[i%this.Base.Length]} {(i < numberOfElemements-1  ? delimiter : String.Empty)} ");
+                Console.Write($"{Base[i%Base.Length]} {(i < numberOfElemements-1  ? delimiter : String.Empty)} ");
             }
         }
         public void ShowPath(int segmentLength, int PathLength = 10, string delimiter = ","){
@@ -59,7 +60,7 @@ class Program
         //     Длина интервала
             
             for (int i=0; i<PathLength; i++){                
-                Console.Write($"{Base[((segmentLength-1)*i)%(this.Base.Length)]} {(i < PathLength-1  ? delimiter : String.Empty)}");
+                Console.Write($"{Base[((segmentLength-1)*i)%Base.Length]} {(i < PathLength-1  ? delimiter : String.Empty)}");
             }
         }
 
